@@ -18,11 +18,5 @@ public class HelloResponse{
 		return message;
 	}
 
-	@Override
-	public String toString(){
-		return
-				"HelloResponse{" +
-						"message = '" + message + '\'' +
-						"}";
-	}
+
 }

@@ -5,10 +5,6 @@ public class UserResponse{
 	private String lname;
 	private int id;
 
-	public UserResponse(String helloSpringBoot) {
-
-	}
-
 	public UserResponse() {
 
 	}
@@ -37,13 +33,5 @@ public class UserResponse{
 		return id;
 	}
 
-	@Override
- 	public String toString(){
-		return 
-			"UserResponse{" + 
-			"fname = '" + fname + '\'' + 
-			",lname = '" + lname + '\'' + 
-			",id = '" + id + '\'' + 
-			"}";
-		}
+
 }

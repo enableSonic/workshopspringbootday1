@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > HelloController</title>
+  <title>Coverage Report > UserController</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.example.day1.hello</a>
+    <a href="../index.html">com.example.day1.user</a>
 </div>
 
-<h1>Coverage Summary for Class: HelloController (com.example.day1.hello)</h1>
+<h1>Coverage Summary for Class: UserController (com.example.day1.user)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -37,11 +37,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 <th class="coverageStat 
 ">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
   Line, %
 </th>
 </tr>
 <tr>
-  <td class="name">HelloController</td>
+  <td class="name">UserController</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -60,10 +64,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    50%
   </span>
   <span class="absValue">
-    (2/2)
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    37.5%
+  </span>
+  <span class="absValue">
+    (3/8)
   </span>
 </td>
 </tr>
@@ -75,17 +87,28 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.example.day1.hello;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.day1.user;
 &nbsp;
+&nbsp;import com.example.day1.hello.HelloResponse;
 &nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
 &nbsp;import org.springframework.web.bind.annotation.RestController;
 &nbsp;
 &nbsp;@RestController
-<b class="fc">&nbsp;public class HelloController {</b>
+<b class="fc">&nbsp;public class UserController {</b>
 &nbsp;
-&nbsp;    @GetMapping(&quot;/hello&quot;)
-&nbsp;    public HelloResponse sayHello(){
-<b class="fc">&nbsp;        return new HelloResponse(&quot;Hello Spring boot&quot;);</b>
+&nbsp;    @GetMapping(&quot;/user/{id}&quot;)
+&nbsp;    public UserResponse getById(@PathVariable int id){
+&nbsp;
+<b class="pc">&nbsp;        if(id == 2){</b>
+<b class="fc">&nbsp;            throw  new UserNotFouneException(new StringBuilder().append(&quot;User id not found =&quot;).append(id).toString());</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        UserResponse userResponse = new UserResponse();</b>
+<b class="nc">&nbsp;        userResponse.setId(1);</b>
+<b class="nc">&nbsp;        userResponse.setFname(&quot;FName&quot;);</b>
+<b class="nc">&nbsp;        userResponse.setLname(&quot;LName&quot;);</b>
+<b class="nc">&nbsp;        return userResponse;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
@@ -115,7 +138,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-02 12:13</div>
+    <div style="float:right;">generated on 2024-10-02 14:46</div>
 </div>
 </body>
 </html>

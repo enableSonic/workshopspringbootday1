@@ -19,12 +19,4 @@ public class UserControllerAdvice {
         return responseEntity;
     }
 
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<ErrorResponse> methodArgumentTypeMismatchException(Exception exception){
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setMessage(exception.getMessage());
-        ResponseEntity<ErrorResponse> responseEntity  = new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-        return responseEntity;
-    }
-
 }
