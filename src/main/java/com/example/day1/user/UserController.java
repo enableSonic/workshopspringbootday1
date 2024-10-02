@@ -10,6 +10,11 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public UserResponse getById(@PathVariable int id){
+
+        if(id == 2){
+            throw  new UserNotFouneException(new StringBuilder().append("User id not found =").append(id).toString());
+        }
+
         UserResponse userResponse = new UserResponse();
         userResponse.setId(1);
         userResponse.setFname("FName");
