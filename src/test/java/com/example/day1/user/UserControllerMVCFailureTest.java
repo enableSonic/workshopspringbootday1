@@ -10,14 +10,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
-class UserControllerMVCTest {
+class UserControllerMVCFailureTest {
 
     @MockBean
     private UserService userService;
@@ -25,27 +23,19 @@ class UserControllerMVCTest {
     @Autowired
     private MockMvc mvc;
 
+
     @Test
-    void getById() throws Exception {
+    void case02() throws Exception {
         // Pre-Pare
         UserResponse mock = new UserResponse();
         mock.setId(1);
         mock.setFname("FName");
         mock.setLname("LName");
-        when(userService.get(1)).thenReturn(mock);
+        when(userService.get(2)).thenThrow(new UserNotFouneException("User id not found = 2"));
 
-        MvcResult mvcResult = this.mvc.perform(get("/user/1").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn();
-
-        String reponse = mvcResult.getResponse().getContentAsString();
-        ObjectMapper objectMapper = new ObjectMapper();
-        UserResponse result = objectMapper.readValue(reponse, UserResponse.class);
-
-        // assert
-        assertEquals(1, result.getId());
-        assertEquals("FName", result.getFname());
-        assertEquals("LName", result.getLname());
-
+        MvcResult mvcResult = this.mvc.perform(get("/user/2")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound()).andReturn();
 
 
 
