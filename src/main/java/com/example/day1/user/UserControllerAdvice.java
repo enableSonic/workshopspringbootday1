@@ -24,7 +24,6 @@ public class UserControllerAdvice {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessage(exception.getMessage());
         ResponseEntity<ErrorResponse> responseEntity  = new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-        exception.printStackTrace();
         return responseEntity;
     }
 
