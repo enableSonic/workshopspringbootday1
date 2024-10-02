@@ -1,5 +1,6 @@
 package com.example.day1.user;
 
+import com.example.day1.global.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,6 @@ class UserControllerMVCFailureTest {
     @Autowired
     private MockMvc mvc;
 
-
     @Test
     void case02() throws Exception {
         // Pre-Pare
@@ -37,7 +37,12 @@ class UserControllerMVCFailureTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound()).andReturn();
 
+        String reponse = mvcResult.getResponse().getContentAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        ErrorResponse result = objectMapper.readValue(reponse, ErrorResponse.class);
 
+        // assert
+        assertEquals("User Not Found", result.getMessage());
 
     }
 }
