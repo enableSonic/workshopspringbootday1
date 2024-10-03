@@ -1,8 +1,9 @@
 package com.example.day1.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +27,20 @@ public class UserService {
         userResponse.setFname(result.get().getFirstName());
         userResponse.setLname(result.get().getLastName());
         return  userResponse;
+    }
+
+    @Transactional
+    public MyUser createNewUser(CreateUserRequest createUserRequest) {
+        MyUser myUser = new MyUser();
+        myUser.setFirstName(createUserRequest.getFname());
+        myUser.setLastName(createUserRequest.getLname());
+        myUser.setAge(createUserRequest.getAge());
+
+        List<MyUser> myUserDB = userRepository.findByFirstName(myUser.getFirstName());
+        if(!myUserDB.isEmpty()){
+            throw new FirstNameDuplicateException("Firstname was duplicate");
+        }
+        userRepository.saveAndFlush(myUser);
+        return myUser;
     }
 }

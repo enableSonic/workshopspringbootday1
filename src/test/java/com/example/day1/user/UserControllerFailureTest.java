@@ -36,4 +36,25 @@ class UserControllerFailureTest {
         //assertEquals("Failed to convert value of type 'java.lang.String' to required type 'int'; For input string: \"2ddd", result.getBody().getMessage());
     }
 
+
+    @Test
+    @DisplayName("createNewUser And Duplicate Error")
+    void createNewUserAndDuplicateError(){
+        CreateUserRequest createUserRequest = new CreateUserRequest();
+        createUserRequest.setFname("FName");
+        createUserRequest.setLname("LName");
+        createUserRequest.setAge(10);
+
+        UserResponse result = restTemplate.postForObject("/user",createUserRequest, UserResponse.class);
+
+        assertEquals(10, result.getAge());
+        assertEquals("FName", result.getFname());
+        assertEquals("LName", result.getLname());
+
+        ResponseEntity<ErrorResponse> resultE = restTemplate.postForEntity("/user",createUserRequest, ErrorResponse.class);
+        // Assert
+        assertEquals(400, resultE.getStatusCode().value());
+
+    }
+
 }
