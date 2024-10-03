@@ -26,8 +26,6 @@ class UserControllerSuccessTest {
         myUser.setLastName("LName");
         myUser.setAge(10);
         userRepository.saveAndFlush(myUser);
-
-
         // Act
         UserResponse result = restTemplate.getForObject("/user/1", UserResponse.class);
         // Assert
