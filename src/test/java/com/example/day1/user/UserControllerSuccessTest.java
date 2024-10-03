@@ -14,9 +14,20 @@ class UserControllerSuccessTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Test
     @DisplayName("Success with get user by id =1")
     void getById() {
+        MyUser myUser = new MyUser();
+        myUser.setId(1L);
+        myUser.setFirstName("FName");
+        myUser.setLastName("LName");
+        myUser.setAge(10);
+        userRepository.saveAndFlush(myUser);
+
+
         // Act
         UserResponse result = restTemplate.getForObject("/user/1", UserResponse.class);
         // Assert
