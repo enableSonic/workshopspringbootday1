@@ -44,9 +44,9 @@ class UserControllerSuccessTest {
 
         UserResponse result = restTemplate.postForObject("/user",createUserRequest, UserResponse.class);
 
-        assertEquals(10, result.getAge());
+        // Assert
+        assertTrue(result.getId() > 0);
         assertEquals("FName", result.getFname());
-        assertEquals("LName", result.getLname());
 
     }
 

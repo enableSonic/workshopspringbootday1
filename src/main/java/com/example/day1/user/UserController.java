@@ -23,7 +23,7 @@ public class UserController {
 
         UserResponse userResponse = new UserResponse();
 
-        userService.createNewUser(createUserRequest);
+        userResponse = userService.createNewUser(createUserRequest);
 
         userResponse.setFname(createUserRequest.getFname());
         userResponse.setLname(createUserRequest.getLname());

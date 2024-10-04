@@ -30,7 +30,7 @@ public class UserService {
     }
 
     @Transactional
-    public MyUser createNewUser(CreateUserRequest createUserRequest) {
+    public UserResponse createNewUser(CreateUserRequest createUserRequest) {
         MyUser myUser = new MyUser();
         myUser.setFirstName(createUserRequest.getFname());
         myUser.setLastName(createUserRequest.getLname());
@@ -40,7 +40,13 @@ public class UserService {
         if(!myUserDB.isEmpty()){
             throw new FirstNameDuplicateException("Firstname was duplicate");
         }
-        userRepository.saveAndFlush(myUser);
-        return myUser;
+        myUser = userRepository.saveAndFlush(myUser);
+
+        UserResponse userResponse = new UserResponse();
+        userResponse.setId(Math.toIntExact(myUser.getId()));
+        userResponse.setFname(myUser.getFirstName());
+        userResponse.setLname(myUser.getLastName());
+
+        return userResponse;
     }
 }
